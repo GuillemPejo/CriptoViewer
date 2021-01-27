@@ -14,10 +14,16 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.observers.DisposableSingleObserver;
+import io.reactivex.schedulers.Schedulers;
 import me.guillem.criptoviewer.adapter.rvAdapter;
 import me.guillem.criptoviewer.api.APIInterface;
+import me.guillem.criptoviewer.api.ApiClient;
+import me.guillem.criptoviewer.retrofit.CryptoList;
 import me.guillem.criptoviewer.retrofit.Datum;
+import me.guillem.criptoviewer.retrofit.Info;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -37,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initRecyclerView() {
-        apiInterface = APIClient.getClient().create(APIInterface.class);
+        apiInterface = ApiClient.getClient().create(APIInterface.class);
         // Lookup the recyclerview in activity layout
         rv_list = findViewById(R.id.rv_list);
         // Initialize data
@@ -62,4 +68,62 @@ public class MainActivity extends AppCompatActivity {
 
         });
     }
+
+    private void getCoinList() {
+        //IDE is satisfied that the Disposable is being managed.
+        compositeDisposable.add(apiInterface.getMarketPairsLatest("100")
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeWith(new DisposableSingleObserver<CryptoList>() {
+                    @Override
+                    public void onSuccess(CryptoList list) {
+                        cryptoList.clear();
+                        cryptoList.addAll(list.getData());
+                        updateLogoList();
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        Toast.makeText(MainActivity.this, "onFailure", Toast.LENGTH_SHORT).show();
+                        Log.d("XXXX", e.getLocalizedMessage());
+                    }
+                }));
+    }
+    private void updateLogoList() {
+        String SEPARATOR = ",";
+        StringBuilder csvBuilder = new StringBuilder();
+        for (Datum datumx : cryptoList) {
+            csvBuilder.append(datumx.getSymbol());
+            csvBuilder.append(SEPARATOR);
+        }
+        String csv = csvBuilder.toString();
+        csv = csv.substring(0, csv.length() - SEPARATOR.length()); //Remove last comma
+
+        final APIInterface apiInterface = ApiClient.getClient().create(APIInterface.class);
+        compositeDisposable.add(apiInterface.getCryptocurrencyInfo(csv)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeWith(new DisposableSingleObserver<Info>() {
+                    @Override
+                    public void onSuccess(Info coinInfo) {
+                        adapter.getCryptoListIcons().clear();
+                        adapter.getCryptoListIcons().putAll(coinInfo.getData());
+                        adapter.notifyDataSetChanged();
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        Toast.makeText(MainActivity.this, "getCryptocurrencyInfo onFailure", Toast.LENGTH_SHORT).show();
+                        Log.d("XXXX", e.getLocalizedMessage());
+                    }
+                }));
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        //Placed wherever we'd like to dispose our Disposables (i.e. in onDestroy()).
+        compositeDisposable.dispose();
+    }
+
 }

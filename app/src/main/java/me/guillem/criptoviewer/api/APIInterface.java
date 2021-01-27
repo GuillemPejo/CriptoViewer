@@ -2,6 +2,7 @@ package me.guillem.criptoviewer.api;
 
 import io.reactivex.Single;
 import me.guillem.criptoviewer.retrofit.CryptoList;
+import me.guillem.criptoviewer.retrofit.Info;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
 
@@ -16,7 +17,7 @@ public interface APIInterface {
     @GET("/v1/cryptocurrency/listings/latest?")
     Single<CryptoList> getMarketPairsLatest(@Query("limit") String limit);
 
-    //@GET("/v1/cryptocurrency/info")
-    //Single<Info> getCryptocurrencyInfo(@Query("symbol") String symbol);
+    @GET("/v1/cryptocurrency/info")
+    Single<Info> getCryptocurrencyInfo(@Query("symbol") String symbol);
 
 }

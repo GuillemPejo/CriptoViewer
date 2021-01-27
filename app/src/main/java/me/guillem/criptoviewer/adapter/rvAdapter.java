@@ -2,6 +2,7 @@ package me.guillem.criptoviewer.adapter;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -63,13 +64,18 @@ public class rvAdapter extends RecyclerView.Adapter<rvAdapter.VH> {
 
         holder.name.setText(datum.getName());
 
-        holder.price.setText("Price: $" + String.format("%,f", datum.getQuote().getUSD().getPrice()));
+        holder.price.setText("$"+String.format("%.2f", datum.getQuote().getUSD().getPrice()));
 
         holder.textView1h.setText(String.format("1h: %.2f", datum.getQuote().getUSD().getPercentChange1h()) + "%");
+        holder.textView1h.setTextColor(Color(String.format("%,f", datum.getQuote().getUSD().getPercentChange1h())));
 
         holder.textView24h.setText(String.format("24h: %.2f", datum.getQuote().getUSD().getPercentChange24h()) + "%");
+        holder.textView24h.setTextColor(Color(String.format("%,f", datum.getQuote().getUSD().getPercentChange24h())));
 
         holder.textView7d.setText(String.format("7d: %.2f", datum.getQuote().getUSD().getPercentChange7d()) + "%");
+        holder.textView7d.setTextColor(Color(String.format("%,f", datum.getQuote().getUSD().getPercentChange7d())));
+
+
 
         String logoURL = cryptoListIcons.get(datum.getSymbol()).getLogo();
         logoURL = logoURL.replace("64x64", "200x200");
@@ -80,6 +86,13 @@ public class rvAdapter extends RecyclerView.Adapter<rvAdapter.VH> {
             e.printStackTrace();
         }
 
+    }
+
+    private int Color(String price){
+        if(price.contains("-")){
+            return Color.RED;
+        }
+        return Color.GREEN;
     }
 
 
