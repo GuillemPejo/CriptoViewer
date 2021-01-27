@@ -17,6 +17,8 @@ import java.util.List;
 import java.util.Map;
 
 import me.guillem.criptoviewer.R;
+import me.guillem.criptoviewer.retrofit.Coin;
+import me.guillem.criptoviewer.retrofit.Datum;
 
 /**
  * * Created by Guillem on 27/01/21.
@@ -33,18 +35,18 @@ public class rvAdapter extends RecyclerView.Adapter<rvAdapter.VH> {
     }
 
     // data is passed into the constructor
-    rvAdapter(List<Datum> data) {
+    public rvAdapter(List<Datum> data) {
         this.mData = data;
     }
 
     // Usually involves inflating a layout from XML and returning the holder
     // inflates the row layout from xml when needed
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public VH onCreateViewHolder(ViewGroup parent, int viewType) {
         context = parent.getContext();
         LayoutInflater inflater = LayoutInflater.from(context);
-        View view = inflater.inflate(R.layout.crypto_list_item, parent, false);
-        ViewHolder viewHolder = new ViewHolder(view);
+        View view = inflater.inflate(R.layout.item_coin, parent, false);
+        VH viewHolder = new VH(view);
         return viewHolder;
     }
 
@@ -57,33 +59,23 @@ public class rvAdapter extends RecyclerView.Adapter<rvAdapter.VH> {
         final Datum datum = mData.get(position);
 
         // Set item views based on your views and data model
-        TextView name = holder.name;
-        name.setText(datum.getName() + " (" + datum.getSymbol() + ")");
+        holder.symbol.setText((datum.getSymbol()));
 
-        TextView price = holder.price;
-        price.setText("Price: $" + String.format("%,f", datum.getQuote().getUSD().getPrice()));
+        holder.name.setText(datum.getName());
 
-        TextView marketCap = holder.marketCap;
-        marketCap.setText("Market Cap: $" + String.format("%,d", Math.round(datum.getQuote().getUSD().getMarketCap())));
+        holder.price.setText("Price: $" + String.format("%,f", datum.getQuote().getUSD().getPrice()));
 
-        TextView volume24h = holder.volume24h;
-        volume24h.setText("Volume/24h: $" + String.format("%,d", Math.round(datum.getQuote().getUSD().getVolume24h())));
+        holder.textView1h.setText(String.format("1h: %.2f", datum.getQuote().getUSD().getPercentChange1h()) + "%");
 
-        TextView textView1h = holder.textView1h;
-        textView1h.setText(String.format("1h: %.2f", datum.getQuote().getUSD().getPercentChange1h()) + "%");
+        holder.textView24h.setText(String.format("24h: %.2f", datum.getQuote().getUSD().getPercentChange24h()) + "%");
 
-        TextView textView24h = holder.textView24h;
-        textView24h.setText(String.format("24h: %.2f", datum.getQuote().getUSD().getPercentChange24h()) + "%");
+        holder.textView7d.setText(String.format("7d: %.2f", datum.getQuote().getUSD().getPercentChange7d()) + "%");
 
-        TextView textView7d = holder.textView7d;
-        textView7d.setText(String.format("7d: %.2f", datum.getQuote().getUSD().getPercentChange7d()) + "%");
-
-        ImageView icon = holder.icon;
         String logoURL = cryptoListIcons.get(datum.getSymbol()).getLogo();
         logoURL = logoURL.replace("64x64", "200x200");
 
         try {
-            Picasso.with(context).load(logoURL).into(icon);
+            Picasso.get().load(logoURL).into(holder.icon);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -101,9 +93,10 @@ public class rvAdapter extends RecyclerView.Adapter<rvAdapter.VH> {
     // Provide a direct reference to each of the views within a data item
     // Used to cache the views within the item layout for fast access
     // stores and recycles views as they are scrolled off screen
-    public class VH extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
+    public class VH extends RecyclerView.ViewHolder implements View.OnClickListener {
         // Your holder should contain a member variable
         // for any view that will be set as you render a row
+        TextView symbol;
         TextView name;
         TextView price;
         TextView marketCap;
@@ -121,12 +114,10 @@ public class rvAdapter extends RecyclerView.Adapter<rvAdapter.VH> {
             super(itemView);
 
             itemView.setOnClickListener(this);
-            itemView.setOnLongClickListener(this);
 
             name = itemView.findViewById(R.id.name);
+            symbol = itemView.findViewById(R.id.symbol);
             price = itemView.findViewById(R.id.price);
-            marketCap = itemView.findViewById(R.id.marketCap);
-            volume24h = itemView.findViewById(R.id.volume24h);
             textView1h = itemView.findViewById(R.id.textView1h);
             textView24h = itemView.findViewById(R.id.textView24h);
             textView7d = itemView.findViewById(R.id.textView7d);
@@ -138,29 +129,20 @@ public class rvAdapter extends RecyclerView.Adapter<rvAdapter.VH> {
             if (mClickListener != null) mClickListener.onItemClick(view, getAdapterPosition());
         }
 
-        @Override
-        public boolean onLongClick(View view) {
-            // Handle long click
-            if (mClickListener != null) mClickListener.onItemLongClick(view, getAdapterPosition());
-            // Return true to indicate the click was handled
-            return true;
-        }
     }
 
     // convenience method for getting data at click position
-    Datum getItem(int id) {
+    public Datum getItem(int id) {
         return mData.get(id);
     }
 
     // allows clicks events to be caught
-    void setClickListener(ItemClickListener itemClickListener) {
+    public void setClickListener(ItemClickListener itemClickListener) {
         this.mClickListener = itemClickListener;
     }
 
     // parent activity will implement this method to respond to click events
     public interface ItemClickListener {
         void onItemClick(View view, int position);
-
-        void onItemLongClick(View view, int position);
     }
 }

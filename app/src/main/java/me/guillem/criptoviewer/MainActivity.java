@@ -14,14 +14,19 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.reactivex.disposables.CompositeDisposable;
+import me.guillem.criptoviewer.adapter.rvAdapter;
 import me.guillem.criptoviewer.api.APIInterface;
+import me.guillem.criptoviewer.retrofit.Datum;
 
 public class MainActivity extends AppCompatActivity {
 
-    private RecyclerViewAdapter adapter;
+    private rvAdapter adapter;
     RecyclerView rv_list;
     private APIInterface apiInterface;
     private List<Datum> cryptoList = null;
+
+    private CompositeDisposable compositeDisposable = new CompositeDisposable();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,28 +43,23 @@ public class MainActivity extends AppCompatActivity {
         // Initialize data
         cryptoList = new ArrayList<>();
         // Create adapter passing in the sample user data
-        adapter = new RecyclerViewAdapter(cryptoList);
+        adapter = new rvAdapter(cryptoList);
         // Attach the adapter to the recyclerview to populate items
         rv_list.setAdapter(adapter);
         // Set layout manager to position the items
         rv_list.setLayoutManager(new LinearLayoutManager(this));
         rv_list.setItemAnimator(new DefaultItemAnimator());
-        adapter.setClickListener(new RecyclerViewAdapter.ItemClickListener() {
+        adapter.setClickListener(new rvAdapter.ItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
                 Log.d("XXXX", "You clicked " + adapter.getItem(position).getName() + " on nr " + position);
                 //Toast.makeText(MainActivity.this, "You clicked " + adapter.getItem(position) + " on row number " + position, Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(MainActivity.this, CoinPage.class);
-                intent.putExtra("coin", adapter.getItem(position));
-                intent.putExtra("icon", adapter.getCryptoListIcons().get(adapter.getItem(position).getSymbol()).getLogo());
-                startActivity(intent);
+                //Intent intent = new Intent(MainActivity.this, CoinPage.class);
+                //intent.putExtra("coin", adapter.getItem(position));
+                //intent.putExtra("icon", adapter.getCryptoListIcons().get(adapter.getItem(position).getSymbol()).getLogo());
+                //startActivity(intent);
             }
 
-            @Override
-            public void onItemLongClick(View view, int position) {
-                Log.d("XXXX", "You LONG clicked " + adapter.getItem(position).getName() + " on nr " + position);
-                Toast.makeText(MainActivity.this, "You LONG clicked " + adapter.getItem(position).getName() + " on nr " + position, Toast.LENGTH_LONG).show();
-            }
         });
     }
 }
