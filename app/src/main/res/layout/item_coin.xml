@@ -44,7 +44,7 @@
                         android:singleLine="true"
                         android:text="BTC"
                         android:textAppearance="@android:style/TextAppearance.Large"
-                        android:textColor="#004d40" />
+                        />
 
                     <TextView
                         android:id="@+id/name"
@@ -52,7 +52,7 @@
                         android:layout_height="wrap_content"
                         android:singleLine="true"
                         android:text="Bitcoin"
-                        android:textColor="#004d40" />
+                        />
 
                 </LinearLayout>
                 <TextView
@@ -65,7 +65,7 @@
                     android:textAppearance="@android:style/TextAppearance.Large"
                     android:layout_margin="10dp"
                     android:layout_gravity="center|end"
-                    android:textColor="#004d40" />
+                     />
 
 
             </LinearLayout>

@@ -92,7 +92,7 @@ public class rvAdapter extends RecyclerView.Adapter<rvAdapter.VH> {
         if(price.contains("-")){
             return Color.RED;
         }
-        return Color.GREEN;
+        return Color.rgb(139,195,74);
     }
 
 

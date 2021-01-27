@@ -1,6 +1,7 @@
 package me.guillem.criptoviewer.ui;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -36,8 +37,10 @@ public class CoinDetail extends AppCompatActivity {
         TextView price = findViewById(R.id.price);
         TextView date = findViewById(R.id.date);
 
+        TextView launch_date = findViewById(R.id.launch_date);
+        TextView cmcrank = findViewById(R.id.cmcrank);
+
         TextView symbol = findViewById(R.id.symbol);
-        TextView slug = findViewById(R.id.slug);
         TextView volume24h = findViewById(R.id.volume24h);
         TextView circulating_supply = findViewById(R.id.circulating_supply);
         TextView max_supply = findViewById(R.id.max_supply);
@@ -49,22 +52,30 @@ public class CoinDetail extends AppCompatActivity {
 
         ImageView icon = findViewById(R.id.icon);
 
-        name.setText(datum.getName() + " (" + datum.getSymbol() + ")");
-        price.setText("Price: $" + String.format("%,f", datum.getQuote().getUSD().getPrice()));
+        name.setText(datum.getName());
+        symbol.setText(datum.getSymbol());
+        cmcrank.setText(String.format(datum.getCmcRank()+("")));
+        launch_date.setText(parseDateToddMMyyyy(datum.getDateAdded()));
+
+        price.setText("$" + String.format("%,f", datum.getQuote().getUSD().getPrice()));
         date.setText("Last Updated: " + parseDateToddMMyyyy(datum.getLastUpdated()));
 
-        symbol.setText("Symbol: " + datum.getSymbol());
-        slug.setText("Slug: " + datum.getSlug());
-        volume24h.setText("Volume/24h: $" + String.format("%,d", Math.round(datum.getQuote().getUSD().getVolume24h())));
+        volume24h.setText("$" + String.format("%,d", Math.round(datum.getQuote().getUSD().getVolume24h())));
 
-        circulating_supply.setText("Circulating Supply: " + String.format("%.0f", datum.getCirculatingSupply()) + " " + datum.getSymbol());
-        max_supply.setText("Max Supply: " + String.format("%.0f", datum.getMaxSupply()) + " " + datum.getSymbol());
+        circulating_supply.setText(String.format("%.0f", datum.getCirculatingSupply()) + " " + datum.getSymbol());
+        max_supply.setText(String.format("%.0f", datum.getMaxSupply()) + " " + datum.getSymbol());
 
-        market_cap.setText("Market Cap: $" + String.format("%,d", Math.round(datum.getQuote().getUSD().getMarketCap())));
+        market_cap.setText("$" + String.format("%,d", Math.round(datum.getQuote().getUSD().getMarketCap())));
 
-        change1h.setText(String.format("Change 1h: %.2f", datum.getQuote().getUSD().getPercentChange1h()) + "%");
-        change24h.setText(String.format("Change 24h: %.2f", datum.getQuote().getUSD().getPercentChange24h()) + "%");
-        change7d.setText(String.format("Change 7d: %.2f", datum.getQuote().getUSD().getPercentChange7d()) + "%");
+        change1h.setText(String.format("%.2f", datum.getQuote().getUSD().getPercentChange1h()) + "% 1H");
+        change1h.setTextColor(Color(String.format("%,f", datum.getQuote().getUSD().getPercentChange1h())));
+
+        change24h.setText(String.format("%.2f", datum.getQuote().getUSD().getPercentChange24h()) + "% 24h");
+        change24h.setTextColor(Color(String.format("%,f", datum.getQuote().getUSD().getPercentChange24h())));
+
+        change7d.setText(String.format("%.2f", datum.getQuote().getUSD().getPercentChange7d()) + "% 7D");
+        change7d.setTextColor(Color(String.format("%,f", datum.getQuote().getUSD().getPercentChange7d())));
+
 
         String logoURL = (String) intent.getSerializableExtra("icon");
         if(logoURL != null){
@@ -77,6 +88,13 @@ public class CoinDetail extends AppCompatActivity {
             }
         }
 
+    }
+
+    private int Color(String price){
+        if(price.contains("-")){
+            return Color.RED;
+        }
+        return Color.rgb(139,195,74);
     }
 
 

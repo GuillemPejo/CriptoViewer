@@ -4,153 +4,336 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_margin="20dp"
     android:orientation="vertical"
-    tools:context=".CoinPage">
+    tools:context=".ui.CoinDetail">
 
-    <ImageView
-        android:id="@+id/icon"
-        android:layout_width="90dp"
-        android:layout_height="90dp"
-        android:layout_gravity="center"
-        android:layout_marginBottom="10dp"
-        android:layout_marginTop="30dp"
-        android:adjustViewBounds="true"
-        android:scaleType="fitXY"
-        app:srcCompat="@mipmap/ic_launcher" />
-
-    <TextView
-        android:id="@+id/name"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="name"
-        android:textAppearance="@android:style/TextAppearance.Large"
-        android:textColor="#424242" />
+        android:orientation="horizontal">
 
-    <TextView
-        android:id="@+id/price"
+        <ImageView
+            android:id="@+id/icon"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_gravity="center"
+            android:layout_margin="10dp"
+            android:adjustViewBounds="true"
+            android:scaleType="fitXY"
+            app:srcCompat="@mipmap/ic_launcher" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="name"
+                android:textAppearance="@android:style/TextAppearance.Large"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/symbol"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="symbol"
+                android:textAppearance="@android:style/TextAppearance.Small" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/change1h"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="end"
+                android:padding="5dp"
+                android:text="change7d"
+                android:textAppearance="@android:style/TextAppearance.Medium"
+               />
+
+            <TextView
+                android:id="@+id/change24h"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="end"
+                android:padding="5dp"
+                android:text="change1h"
+                android:textAppearance="@android:style/TextAppearance.Medium"
+                 />
+
+            <TextView
+                android:id="@+id/change7d"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="end"
+                android:padding="5dp"
+
+                android:text="change24h"
+                android:textAppearance="@android:style/TextAppearance.Medium"
+                 />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="price"
-        android:textAppearance="@android:style/TextAppearance.Large"
-        android:textColor="#424242" />
+        android:layout_margin="5dp"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="5dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/textVie"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="CMC Rank"
+                android:textAppearance="@android:style/TextAppearance.Medium"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/cmcrank"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="end"
+                android:text="cmc_rank"
+                android:textAppearance="@android:style/TextAppearance.Medium"
+                />
+        </LinearLayout>
+
+        <View
+            android:id="@+id/divide"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:background="?android:attr/listDivider" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="5dp"
+            android:layout_marginTop="20dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Price"
+                android:textAppearance="@android:style/TextAppearance.Medium"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/price"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="end"
+                android:text="price"
+                android:textAppearance="@android:style/TextAppearance.Medium"
+                />
+        </LinearLayout>
+
+        <View
+            android:id="@+id/divider"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:background="?android:attr/listDivider" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="5dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Market Cap"
+                android:textAppearance="@android:style/TextAppearance.Medium"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/market_cap"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="end"
+                android:text="market_cap"
+                android:textAppearance="@android:style/TextAppearance.Medium"
+                 />
+        </LinearLayout>
+
+        <View
+            android:id="@+id/divider1"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:background="?android:attr/listDivider" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="5dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Volume 24h"
+                android:textAppearance="@android:style/TextAppearance.Medium"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/volume24h"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="end"
+                android:text="volume24h"
+                android:textAppearance="@android:style/TextAppearance.Medium"
+                />
+        </LinearLayout>
+
+        <View
+            android:id="@+id/divider2"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:background="?android:attr/listDivider" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="5dp"
+            android:orientation="horizontal">
+
+
+            <TextView
+                android:id="@+id/textView5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Circulating Supply"
+                android:textAppearance="@android:style/TextAppearance.Medium"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/circulating_supply"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="end"
+                android:text="circulating_supply"
+                android:textAppearance="@android:style/TextAppearance.Medium"
+                 />
+        </LinearLayout>
+
+        <View
+            android:id="@+id/divider3"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:background="?android:attr/listDivider" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="5dp"
+            android:orientation="horizontal">
+
+
+            <TextView
+                android:id="@+id/textView6"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Max Supply"
+                android:textAppearance="@android:style/TextAppearance.Medium"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/max_supply"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="end"
+                android:text="max_supply"
+                android:textAppearance="@android:style/TextAppearance.Medium"
+                 />
+
+        </LinearLayout>
+
+        <View
+            android:id="@+id/divider4"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:background="?android:attr/listDivider" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="5dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/textView1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Launch Date"
+                android:textAppearance="@android:style/TextAppearance.Medium"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/launch_date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="end"
+                android:text="launch_date"
+                android:textAppearance="@android:style/TextAppearance.Medium"
+                 />
+        </LinearLayout>
+
+    </LinearLayout>
 
     <TextView
         android:id="@+id/date"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
-        android:gravity="center"
+        android:layout_weight="1"
+        android:gravity="bottom|center"
         android:text="date"
-        android:textAppearance="@android:style/TextAppearance.Small"
-        android:textColor="#424242" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_margin="5dp"
-        android:orientation="vertical">
-
-        <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/symbol"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="5dp"
-                    android:text="symbol"
-                    android:textAppearance="@android:style/TextAppearance.Medium"
-                    android:textColor="#424242" />
-
-
-                <TextView
-                    android:id="@+id/slug"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="5dp"
-                    android:text="slug"
-                    android:textAppearance="@android:style/TextAppearance.Medium"
-                    android:textColor="#424242" />
-
-
-                <TextView
-                    android:id="@+id/volume24h"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="5dp"
-                    android:text="volume24h"
-                    android:textAppearance="@android:style/TextAppearance.Medium"
-                    android:textColor="#424242" />
-
-
-                <TextView
-                    android:id="@+id/circulating_supply"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="5dp"
-                    android:text="circulating_supply"
-                    android:textAppearance="@android:style/TextAppearance.Medium"
-                    android:textColor="#424242" />
-
-                <TextView
-                    android:id="@+id/max_supply"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="5dp"
-                    android:text="max_supply"
-                    android:textAppearance="@android:style/TextAppearance.Medium"
-                    android:textColor="#424242" />
-
-
-                <TextView
-                    android:id="@+id/market_cap"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="5dp"
-                    android:text="market_cap"
-                    android:textAppearance="@android:style/TextAppearance.Medium"
-                    android:textColor="#424242" />
-
-                <TextView
-                    android:id="@+id/change1h"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="5dp"
-                    android:text="change1h"
-                    android:textAppearance="@android:style/TextAppearance.Medium"
-                    android:textColor="#424242" />
-
-
-                <TextView
-                    android:id="@+id/change24h"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="5dp"
-                    android:text="change24h"
-                    android:textAppearance="@android:style/TextAppearance.Medium"
-                    android:textColor="#424242" />
-
-
-                <TextView
-                    android:id="@+id/change7d"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="5dp"
-                    android:text="change7d"
-                    android:textAppearance="@android:style/TextAppearance.Medium"
-                    android:textColor="#424242" />
-
-
-            </LinearLayout>
-        </ScrollView>
-
-    </LinearLayout>
+        android:textAppearance="@android:style/TextAppearance.Medium" />
 </LinearLayout>
