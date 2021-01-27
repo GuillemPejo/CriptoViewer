@@ -24,6 +24,7 @@ import me.guillem.criptoviewer.api.ApiClient;
 import me.guillem.criptoviewer.retrofit.CryptoList;
 import me.guillem.criptoviewer.retrofit.Datum;
 import me.guillem.criptoviewer.retrofit.Info;
+import me.guillem.criptoviewer.ui.CoinDetail;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -59,11 +60,11 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onItemClick(View view, int position) {
                 Log.d("XXXX", "You clicked " + adapter.getItem(position).getName() + " on nr " + position);
-                //Toast.makeText(MainActivity.this, "You clicked " + adapter.getItem(position) + " on row number " + position, Toast.LENGTH_SHORT).show();
-                //Intent intent = new Intent(MainActivity.this, CoinPage.class);
-                //intent.putExtra("coin", adapter.getItem(position));
-                //intent.putExtra("icon", adapter.getCryptoListIcons().get(adapter.getItem(position).getSymbol()).getLogo());
-                //startActivity(intent);
+                Toast.makeText(MainActivity.this, "You clicked " + adapter.getItem(position) + " on row number " + position, Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(MainActivity.this, CoinDetail.class);
+                intent.putExtra("coin", adapter.getItem(position));
+                intent.putExtra("icon", adapter.getCryptoListIcons().get(adapter.getItem(position).getSymbol()).getLogo());
+                startActivity(intent);
             }
 
         });
